@@ -157,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: buildDayflectTitle(movingLogoOpacityAnimation),
         ),
         SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: Stack(
