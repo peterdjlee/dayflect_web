@@ -11,7 +11,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const HomeScreen(),
       title: 'Dayflect',
-      theme: ThemeData.dark().copyWith(primaryColor: kPastelBlue),
     );
   }
 }
