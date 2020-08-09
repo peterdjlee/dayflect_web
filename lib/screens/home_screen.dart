@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -195,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'white_logo.png',
+              'assets/white_logo.png',
               width: 32.0,
               height: 32.0,
             ),
@@ -212,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen>
   List<Widget> buildContentWidgets({bool isMobile = false}) {
     return [
       Image.asset(
-        'galaxy_read_screenshot.png',
+        'assets/galaxy_read_screenshot.png',
         width: limitNumber(
           min: 300.0,
           number: screenSize.width * 0.25,
@@ -278,10 +277,10 @@ class _HomeScreenState extends State<HomeScreen>
     if (screenSize.width < 1025) {
       return Column(
         children: [
-          Image.asset('download_app_store.png'),
+          Image.asset('assets/download_app_store.png'),
           const SizedBox(height: 16.0),
           buildStoreButton(
-            assetUrl: 'download_play_store.png',
+            assetUrl: 'assets/download_play_store.png',
             storeUrl: HomeScreen.playStoreUrl,
           ),
         ],
@@ -289,10 +288,10 @@ class _HomeScreenState extends State<HomeScreen>
     } else {
       return Row(
         children: [
-          Image.asset('download_app_store.png'),
+          Image.asset('assets/download_app_store.png'),
           const SizedBox(width: 16.0),
           buildStoreButton(
-            assetUrl: 'download_play_store.png',
+            assetUrl: 'assets/download_play_store.png',
             storeUrl: HomeScreen.playStoreUrl,
           ),
         ],
