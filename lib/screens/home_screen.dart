@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 24.0, left: 16.0, right: 16.0),
+          padding: const EdgeInsets.only(top: 24.0),
           child: buildDayflectTitle(movingLogoOpacityAnimation),
         ),
         SingleChildScrollView(
@@ -164,7 +164,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               children: [
                 buildDayflectTitle(staticLogoOpacityAnimation),
                 Padding(
-                  padding: const EdgeInsets.only(top: 64.0),
+                  padding: const EdgeInsets.only(
+                    top: 64.0,
+                    left: 16.0,
+                    right: 16.0,
+                  ),
                   child: Center(
                     child: FadeTransition(
                       opacity: contentOpacityAnimation,
