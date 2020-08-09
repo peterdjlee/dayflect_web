@@ -13,8 +13,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with TickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   AnimationController mainController;
   AnimationController subController;
 
@@ -39,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen>
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     movingLogoOpacityAnimation = Tween(
       begin: 0.0,
       end: 1.0,
@@ -124,7 +123,6 @@ class _HomeScreenState extends State<HomeScreen>
   Stack buildWebScreen() {
     return Stack(
       children: [
-
         Padding(
           padding: const EdgeInsets.only(top: 48.0),
           child: buildDayflectTitle(movingLogoOpacityAnimation),
@@ -155,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 24.0),
+          padding: const EdgeInsets.only(top: 24.0, left: 16.0, right: 16.0),
           child: buildDayflectTitle(movingLogoOpacityAnimation),
         ),
         SingleChildScrollView(
