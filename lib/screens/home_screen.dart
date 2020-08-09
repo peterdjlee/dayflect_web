@@ -315,13 +315,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  SelectableText buildRalewayText(
-      {@required String text,
-      @required double fontSize,
-      FontWeight fontWeight = FontWeight.normal,
-      Color fontColor = Colors.white,
-      TextAlign textAlign = TextAlign.start}) {
-    return SelectableText(
+  Text buildRalewayText({
+    @required String text,
+    @required double fontSize,
+    FontWeight fontWeight = FontWeight.normal,
+    Color fontColor = Colors.white,
+    TextAlign textAlign = TextAlign.start,
+  }) {
+    return Text(
       text,
       style: GoogleFonts.raleway(
         textStyle: TextStyle(
