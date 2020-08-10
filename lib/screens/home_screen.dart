@@ -127,22 +127,38 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           padding: const EdgeInsets.only(top: 48.0),
           child: buildDayflectTitle(movingLogoOpacityAnimation),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 48.0),
-          child: Stack(
-            children: [
-              buildDayflectTitle(staticLogoOpacityAnimation),
-              Padding(
-                padding: const EdgeInsets.only(top: 48.0),
-                child: FadeTransition(
-                  opacity: contentOpacityAnimation,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: buildContentWidgets(),
+        SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 48.0, bottom: 48.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildDayflectTitle(staticLogoOpacityAnimation),
+                Padding(
+                  padding: EdgeInsets.only(top: screenSize.height / 8),
+                  child: Center(
+                    child: FadeTransition(
+                      opacity: contentOpacityAnimation,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: buildContentWidgets(),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: FadeTransition(
+              opacity: contentOpacityAnimation,
+              child: buildSupportText(),
+            ),
           ),
         ),
       ],
@@ -166,8 +182,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 64.0,
-                    left: 16.0,
-                    right: 16.0,
+                    left: 32.0,
+                    right: 32.0,
                   ),
                   child: Center(
                     child: FadeTransition(
@@ -231,11 +247,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
       buildDetails(
         width: 400.0,
-        height: limitNumber(
-          min: 300.0,
-          number: screenSize.height - 100,
-          max: 1000.0,
-        ),
         isMobile: isMobile,
       ),
     ];
@@ -243,12 +254,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Container buildDetails({
     @required double width,
-    @required double height,
     bool isMobile = false,
   }) {
     return Container(
       width: width,
-      height: height,
       child: Column(
         mainAxisAlignment:
             isMobile ? MainAxisAlignment.start : MainAxisAlignment.center,
@@ -270,6 +279,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 32.0),
           Center(child: buildStoreButtons()),
+          const SizedBox(height: 64.0),
+          if (isMobile)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: FadeTransition(
+                  opacity: contentOpacityAnimation,
+                  child: buildSupportText(),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -337,6 +358,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
       textAlign: textAlign,
+    );
+  }
+
+  SelectableText buildSupportText() {
+    final ralewayText = buildRalewayText(
+      text: 'Have questions or feedback? Email dayflect@gmail.com',
+      fontSize: 16.0,
+      textAlign: TextAlign.center,
+      fontColor: Colors.white70,
+    );
+    return SelectableText(
+      ralewayText.data,
+      style: ralewayText.style,
+      textAlign: ralewayText.textAlign,
     );
   }
 
