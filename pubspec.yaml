@@ -24,6 +24,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/white_logo.png
-    - assets/galaxy_read_screenshot.png
+    - assets/android_read_screenshot.png
+    - assets/ios_signin_screenshot.png
     - assets/download_app_store.png
     - assets/download_play_store.png

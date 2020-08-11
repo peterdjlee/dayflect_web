@@ -6,9 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen();
 
-  static const playStoreUrl =
-      'https://play.google.com/store/apps/details?id=com.peterlee.dayflect&hl=en_US';
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -24,6 +21,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Animation<AlignmentGeometry> staticLogoAlignAnimation;
 
   Size screenSize;
+
+  static const minScreenWidthWeb = 1050.0;
+
+  static const playStoreUrl =
+      'https://play.google.com/store/apps/details?id=com.peterlee.dayflect&hl=en_US';
+
+  static const whiteLogoUrl = 'assets/white_logo.png';
+  static const iosScreenshotUrl = 'assets/ios_signin_screenshot.png';
+  static const androidScreenshotUrl = 'assets/android_read_screenshot.png';
+  static const appStoreButtonUrl = 'assets/download_app_store.png';
+  static const playStoreButtonUrl = 'assets/download_play_store.png';
+
+  static const titleString = 'Reflect every day';
+  static const firstDecriptionString =
+      'Dayflect is a diary app that lets you write about each day in a simple, manageable way.';
+  static const secondDescriptionString =
+      'More than a daily journal, Dayflect accumulates entries from successive years, '
+      'allowing users to revisit past memories on a specific day and reflect on change and growth.';
+  static const feedbackString =
+      'Have questions or feedback? Email dayflect@gmail.com';
 
   @override
   void initState() {
@@ -113,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget buildScreen() {
-    if (screenSize.width < 850) {
+    if (screenSize.width < minScreenWidthWeb) {
       return buildMobileScreen();
     } else {
       return buildWebScreen();
@@ -211,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/white_logo.png',
+              whiteLogoUrl,
               width: 32.0,
               height: 32.0,
             ),
@@ -227,11 +244,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   List<Widget> buildContentWidgets({bool isMobile = false}) {
     return [
-      Image.asset('assets/galaxy_read_screenshot.png',
-          height: limitNumber(
-              number: screenSize.height * 0.5, min: 500, max: 800.0)),
+      buildScreenshots(isMobile: isMobile),
       SizedBox(
-        width: isMobile ? 0.0 : 48.0,
+        width: isMobile ? 0.0 : 300.0,
         height: isMobile ? 24.0 : 0.0,
       ),
       buildDetails(
@@ -239,6 +254,47 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         isMobile: isMobile,
       ),
     ];
+  }
+
+  Widget buildScreenshots({bool isMobile = false}) {
+    if (isMobile) {
+      return Image.asset(
+        androidScreenshotUrl,
+        height: limitNumber(
+          number: screenSize.height * 0.5,
+          min: 500,
+          max: 800.0,
+        ),
+      );
+    } else {
+      return Stack(
+        overflow: Overflow.visible,
+        children: [
+          Positioned(
+            child: Image.asset(
+              iosScreenshotUrl,
+              height: limitNumber(
+                number: screenSize.height * 0.5,
+                min: 500,
+                max: 800.0,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 200.0,
+            bottom: 5.0,
+            child: Image.asset(
+              androidScreenshotUrl,
+              height: limitNumber(
+                number: screenSize.height * 0.5,
+                min: 500,
+                max: 800.0,
+              ),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   Container buildDetails({
@@ -252,23 +308,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             isMobile ? MainAxisAlignment.start : MainAxisAlignment.center,
         children: [
           buildRalewayText(
-            text: 'Reflect every day',
-            fontSize: 48.0,
-            fontWeight: FontWeight.bold,
-            textAlign: isMobile ? TextAlign.center : TextAlign.start,
-            height: 0.8
-          ),
+              text: titleString,
+              fontSize: 48.0,
+              fontWeight: FontWeight.bold,
+              textAlign: isMobile ? TextAlign.center : TextAlign.start,
+              height: 0.8),
           buildRalewayText(
-            text:
-                'Dayflect is a diary app that lets you write about each day in a simple, manageable way.',
+            text: firstDecriptionString,
             fontSize: 18.0,
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
           ),
           const SizedBox(height: 16.0),
           buildRalewayText(
-            text:
-                'More than a daily journal, Dayflect accumulates entries from successive years, '
-                'allowing users to revisit past memories on a specific day and reflect on change and growth.',
+            text: secondDescriptionString,
             fontSize: 18.0,
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
           ),
@@ -299,22 +351,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     if (screenSize.width < 1025) {
       return Column(
         children: [
-          Image.asset('assets/download_app_store.png'),
+          Image.asset(appStoreButtonUrl),
           const SizedBox(height: 16.0),
           buildStoreButton(
-            assetUrl: 'assets/download_play_store.png',
-            storeUrl: HomeScreen.playStoreUrl,
+            assetUrl: playStoreButtonUrl,
+            storeUrl: playStoreUrl,
           ),
         ],
       );
     } else {
       return Row(
         children: [
-          Image.asset('assets/download_app_store.png'),
+          Image.asset(appStoreButtonUrl),
           const SizedBox(width: 16.0),
           buildStoreButton(
-            assetUrl: 'assets/download_play_store.png',
-            storeUrl: HomeScreen.playStoreUrl,
+            assetUrl: playStoreButtonUrl,
+            storeUrl: playStoreUrl,
           ),
         ],
       );
@@ -352,11 +404,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       text,
       style: GoogleFonts.raleway(
         textStyle: TextStyle(
-          color: fontColor,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          height: height
-        ),
+            color: fontColor,
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            height: height),
       ),
       textAlign: textAlign,
     );
@@ -364,7 +415,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   SelectableText buildSupportText() {
     final ralewayText = buildRalewayText(
-      text: 'Have questions or feedback? Email dayflect@gmail.com',
+      text: feedbackString,
       fontSize: 16.0,
       textAlign: TextAlign.center,
       fontColor: Colors.white70,
