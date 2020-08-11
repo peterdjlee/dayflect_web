@@ -27,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   static const playStoreUrl =
       'https://play.google.com/store/apps/details?id=com.peterlee.dayflect&hl=en_US';
 
+  static const appStoreUrl = 'https://apps.apple.com/app/id1520852249';
+
   static const whiteLogoUrl = 'assets/white_logo.png';
   static const iosScreenshotUrl = 'assets/ios_signin_screenshot.png';
   static const androidScreenshotUrl = 'assets/android_read_screenshot.png';
@@ -281,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           ),
           Positioned(
-            left: 200.0,
+            left: 150.0,
             bottom: 5.0,
             child: Image.asset(
               androidScreenshotUrl,
@@ -308,11 +310,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             isMobile ? MainAxisAlignment.start : MainAxisAlignment.center,
         children: [
           buildRalewayText(
-              text: titleString,
-              fontSize: 48.0,
-              fontWeight: FontWeight.bold,
-              textAlign: isMobile ? TextAlign.center : TextAlign.start,
-              height: 0.8),
+            text: titleString,
+            fontSize: 48.0,
+            fontWeight: FontWeight.bold,
+            textAlign: isMobile ? TextAlign.center : TextAlign.start,
+            height: 0.8,
+          ),
+          const SizedBox(height: 32.0),
           buildRalewayText(
             text: firstDecriptionString,
             fontSize: 18.0,
@@ -325,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
           ),
           const SizedBox(height: 32.0),
-          Center(child: buildStoreButtons()),
+          Center(child: buildStoreButtons(isMobile: isMobile)),
           if (isMobile)
             Column(
               children: [
@@ -347,29 +351,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget buildStoreButtons() {
-    if (screenSize.width < 1025) {
-      return Column(
-        children: [
-          Image.asset(appStoreButtonUrl),
-          const SizedBox(height: 16.0),
-          buildStoreButton(
-            assetUrl: playStoreButtonUrl,
-            storeUrl: playStoreUrl,
-          ),
-        ],
-      );
+  Widget buildStoreButtons({bool isMobile = false}) {
+    final buttons = [
+      buildStoreButton(
+        assetUrl: appStoreButtonUrl,
+        storeUrl: appStoreUrl,
+      ),
+      SizedBox(
+        height: isMobile ? 16.0 : 0.0,
+        width: isMobile ? 0.0 : 16.0,
+      ),
+      buildStoreButton(
+        assetUrl: playStoreButtonUrl,
+        storeUrl: playStoreUrl,
+      ),
+    ];
+
+    if (isMobile) {
+      return Column(children: buttons);
     } else {
-      return Row(
-        children: [
-          Image.asset(appStoreButtonUrl),
-          const SizedBox(width: 16.0),
-          buildStoreButton(
-            assetUrl: playStoreButtonUrl,
-            storeUrl: playStoreUrl,
-          ),
-        ],
-      );
+      return Row(children: buttons);
     }
   }
 
@@ -404,10 +405,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       text,
       style: GoogleFonts.raleway(
         textStyle: TextStyle(
-            color: fontColor,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            height: height),
+          color: fontColor,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          height: height,
+        ),
       ),
       textAlign: textAlign,
     );
