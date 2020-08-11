@@ -132,11 +132,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Padding(
             padding: const EdgeInsets.only(top: 48.0, bottom: 48.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 buildDayflectTitle(staticLogoOpacityAnimation),
                 Padding(
-                  padding: EdgeInsets.only(top: screenSize.height / 8),
+                  padding: EdgeInsets.only(top: screenSize.height / 10),
                   child: Center(
                     child: FadeTransition(
                       opacity: contentOpacityAnimation,
@@ -228,19 +227,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   List<Widget> buildContentWidgets({bool isMobile = false}) {
     return [
-      Image.asset(
-        'assets/galaxy_read_screenshot.png',
-        width: limitNumber(
-          min: 300.0,
-          number: screenSize.width * 0.25,
-          max: 500.0,
-        ),
-        height: limitNumber(
-          min: 400.0,
-          number: screenSize.height * 0.65,
-          max: 750.0,
-        ),
-      ),
+      Image.asset('assets/galaxy_read_screenshot.png', height: limitNumber(number: screenSize.height * 0.5, min: 500, max: 800.0)),
       SizedBox(
         width: isMobile ? 0.0 : 48.0,
         height: isMobile ? 24.0 : 0.0,
@@ -279,18 +266,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 32.0),
           Center(child: buildStoreButtons()),
-          const SizedBox(height: 64.0),
           if (isMobile)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: FadeTransition(
-                  opacity: contentOpacityAnimation,
-                  child: buildSupportText(),
+            Column(
+              children: [
+                const SizedBox(height: 64.0),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FadeTransition(
+                      opacity: contentOpacityAnimation,
+                      child: buildSupportText(),
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              ],
+            )
         ],
       ),
     );
