@@ -308,13 +308,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Column(
         mainAxisAlignment:
             isMobile ? MainAxisAlignment.start : MainAxisAlignment.center,
+        crossAxisAlignment:
+            isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
           buildRalewayText(
             text: titleString,
-            fontSize: 48.0,
+            fontSize: 36.0,
             fontWeight: FontWeight.bold,
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
           ),
+          const SizedBox(height: 32.0),
           buildRalewayText(
             text: firstDecriptionString,
             fontSize: 18.0,
