@@ -314,9 +314,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             fontSize: 48.0,
             fontWeight: FontWeight.bold,
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
-            height: 0.8,
           ),
-          const SizedBox(height: 32.0),
           buildRalewayText(
             text: firstDecriptionString,
             fontSize: 18.0,
