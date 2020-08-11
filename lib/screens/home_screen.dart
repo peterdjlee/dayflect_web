@@ -154,14 +154,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               children: [
                 buildDayflectTitle(staticLogoOpacityAnimation),
                 Padding(
-                  padding: EdgeInsets.only(top: screenSize.height / 10),
-                  child: Center(
-                    child: FadeTransition(
-                      opacity: contentOpacityAnimation,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: buildContentWidgets(),
-                      ),
+                  padding: EdgeInsets.only(top: screenSize.height / 15),
+                  child: FadeTransition(
+                    opacity: contentOpacityAnimation,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: buildContentWidgets(),
                     ),
                   ),
                 ),
