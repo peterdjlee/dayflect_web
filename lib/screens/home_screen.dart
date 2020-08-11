@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Size screenSize;
 
-  static const minScreenWidthWeb = 1050.0;
+  static const minScreenWidthWeb = 750.0;
 
   static const playStoreUrl =
       'https://play.google.com/store/apps/details?id=com.peterlee.dayflect&hl=en_US';
@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return [
       buildScreenshots(isMobile: isMobile),
       SizedBox(
-        width: isMobile ? 0.0 : 300.0,
+        width: screenSize.width < 1050 ? 64 : 240.0,
         height: isMobile ? 24.0 : 0.0,
       ),
       buildDetails(
@@ -259,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget buildScreenshots({bool isMobile = false}) {
-    if (isMobile) {
+    if (screenSize.width < 1050.0) {
       return Image.asset(
         androidScreenshotUrl,
         height: limitNumber(
