@@ -227,7 +227,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   List<Widget> buildContentWidgets({bool isMobile = false}) {
     return [
-      Image.asset('assets/galaxy_read_screenshot.png', height: limitNumber(number: screenSize.height * 0.5, min: 500, max: 800.0)),
+      Image.asset('assets/galaxy_read_screenshot.png',
+          height: limitNumber(
+              number: screenSize.height * 0.5, min: 500, max: 800.0)),
       SizedBox(
         width: isMobile ? 0.0 : 48.0,
         height: isMobile ? 24.0 : 0.0,
@@ -250,17 +252,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             isMobile ? MainAxisAlignment.start : MainAxisAlignment.center,
         children: [
           buildRalewayText(
-            text: 'Write your memories every day',
-            fontSize: 58.0,
+            text: 'Reflect every day',
+            fontSize: 48.0,
             fontWeight: FontWeight.bold,
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
+            height: 0.8
           ),
-          const SizedBox(height: 32.0),
           buildRalewayText(
             text:
-                'Dayflect is a diary app where you can easily see what you wrote '
-                'in the past years for a given day. Every day, you can remember and reflect '
-                'on what you did a year ago, 2 years ago, and on.',
+                'Dayflect is a diary app that lets you write about each day in a simple, manageable way.',
+            fontSize: 18.0,
+            textAlign: isMobile ? TextAlign.center : TextAlign.start,
+          ),
+          const SizedBox(height: 16.0),
+          buildRalewayText(
+            text:
+                'More than a daily journal, Dayflect accumulates entries from successive years, '
+                'allowing users to revisit past memories on a specific day and reflect on change and growth.',
             fontSize: 18.0,
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
           ),
@@ -338,6 +346,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     FontWeight fontWeight = FontWeight.normal,
     Color fontColor = Colors.white,
     TextAlign textAlign = TextAlign.start,
+    double height = 1.5,
   }) {
     return Text(
       text,
@@ -346,6 +355,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           color: fontColor,
           fontSize: fontSize,
           fontWeight: fontWeight,
+          height: height
         ),
       ),
       textAlign: textAlign,
