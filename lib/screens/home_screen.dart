@@ -11,16 +11,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  AnimationController mainController;
-  AnimationController subController;
+  late AnimationController mainController;
+  late AnimationController subController;
 
-  Animation<double> contentOpacityAnimation;
-  Animation<double> movingLogoOpacityAnimation;
-  Animation<AlignmentGeometry> movingLogoAlignAnimation;
-  Animation<double> staticLogoOpacityAnimation;
-  Animation<AlignmentGeometry> staticLogoAlignAnimation;
+  late Animation<double> contentOpacityAnimation;
+  late Animation<double> movingLogoOpacityAnimation;
+  late Animation<Alignment> movingLogoAlignAnimation;
+  late Animation<double> staticLogoOpacityAnimation;
+  late Animation<AlignmentGeometry> staticLogoAlignAnimation;
 
-  Size screenSize;
+  Size? screenSize;
 
   static const minScreenWidthWeb = 750.0;
 
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
 
-    movingLogoAlignAnimation = AlignmentGeometryTween(
+    movingLogoAlignAnimation = AlignmentTween(
       begin: Alignment.center,
       end: Alignment.topCenter,
     ).animate(
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget buildScreen() {
-    if (screenSize.width < minScreenWidthWeb) {
+    if (screenSize!.width < minScreenWidthWeb) {
       return buildMobileScreen();
     } else {
       return buildWebScreen();
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               children: [
                 buildDayflectTitle(staticLogoOpacityAnimation),
                 Padding(
-                  padding: EdgeInsets.only(top: screenSize.height / 15),
+                  padding: EdgeInsets.only(top: screenSize!.height / 15),
                   child: FadeTransition(
                     opacity: contentOpacityAnimation,
                     child: Row(
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return [
       buildScreenshots(isMobile: isMobile),
       SizedBox(
-        width: screenSize.width < 1050 ? 64 : 240.0,
+        width: screenSize!.width < 1050 ? 64 : 240.0,
         height: isMobile ? 24.0 : 0.0,
       ),
       buildDetails(
@@ -257,24 +257,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget buildScreenshots({bool isMobile = false}) {
-    if (screenSize.width < 1050.0) {
+    if (screenSize!.width < 1050.0) {
       return Image.asset(
         androidScreenshotUrl,
         height: limitNumber(
-          number: screenSize.height * 0.5,
+          number: screenSize!.height * 0.5,
           min: 500,
           max: 800.0,
         ),
       );
     } else {
       return Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: [
           Positioned(
             child: Image.asset(
               iosScreenshotUrl,
               height: limitNumber(
-                number: screenSize.height * 0.5,
+                number: screenSize!.height * 0.5,
                 min: 500,
                 max: 800.0,
               ),
@@ -286,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: Image.asset(
               androidScreenshotUrl,
               height: limitNumber(
-                number: screenSize.height * 0.5,
+                number: screenSize!.height * 0.5,
                 min: 500,
                 max: 800.0,
               ),
@@ -297,11 +297,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
   }
 
-  Container buildDetails({
-    @required double width,
+  SizedBox buildDetails({
+    required double width,
     bool isMobile = false,
   }) {
-    return Container(
+    return SizedBox(
       width: width,
       child: Column(
         mainAxisAlignment:
@@ -374,8 +374,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   MouseRegion buildStoreButton({
-    @required String assetUrl,
-    @required String storeUrl,
+    required String assetUrl,
+    required String storeUrl,
   }) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -393,8 +393,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Text buildRalewayText({
-    @required String text,
-    @required double fontSize,
+    required String text,
+    required double fontSize,
     FontWeight fontWeight = FontWeight.normal,
     Color fontColor = Colors.white,
     TextAlign textAlign = TextAlign.start,
@@ -422,16 +422,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       fontColor: Colors.white70,
     );
     return SelectableText(
-      ralewayText.data,
+      ralewayText.data!,
       style: ralewayText.style,
       textAlign: ralewayText.textAlign,
     );
   }
 
   double limitNumber({
-    @required double number,
-    @required double min,
-    @required double max,
+    required double number,
+    required double min,
+    required double max,
   }) {
     if (number < min) return min;
     if (number > max) return max;
