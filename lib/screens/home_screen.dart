@@ -356,14 +356,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         assetUrl: appStoreButtonUrl,
         storeUrl: appStoreUrl,
       ),
-      SizedBox(
-        height: isMobile ? 16.0 : 0.0,
-        width: isMobile ? 0.0 : 16.0,
-      ),
-      buildStoreButton(
-        assetUrl: playStoreButtonUrl,
-        storeUrl: playStoreUrl,
-      ),
     ];
 
     if (isMobile) {
